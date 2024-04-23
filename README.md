@@ -12,5 +12,8 @@ This template should help get you started developing with Vue 3 in Vite.
 
 
 ### ui-btn
-![Снимок экрана 2024-04-23 191840](https://github.com/Belozertsev-av/ui-kit/assets/65508634/60e41a11-15a7-40cc-903b-d3589896d262)
-![Снимок экрана 2024-04-23 191833](https://github.com/Belozertsev-av/ui-kit/assets/65508634/ae8d45b7-65fe-4637-86d9-f5ceb7f0ac60)
+![image](https://github.com/Belozertsev-av/ui-kit/assets/65508634/727ef671-91c6-4453-b9ba-d04fd55f1fa7)
+
+![image](https://github.com/Belozertsev-av/ui-kit/assets/65508634/60f52270-3f16-4c2a-976e-0cdcbd9ab2d3)
+
+
