@@ -3,29 +3,52 @@
     <div class="wrapper">
       <div class="column">
         <ui-btn class="btn" append-icon="theme" action="normal" @click="changeTheme"></ui-btn>
+        <ui-btn size="s">small</ui-btn>
+        <ui-btn size="m">medium</ui-btn>
+        <ui-btn size="l">grand</ui-btn>
       </div>
       <div class="column">
         <div class="row">
           <ui-input class="btn"
-                    label="Input with search"
+                    label="This is a string of 20 words, and some other text that shouldn't expand"
                     v-model="text"
                     clearable
-                    :options="['option 1', 'OpTiOn2', 'OPTION 3', 'Option 4']"></ui-input>
-          <ui-btn class="btn" @click="text = ''">Clear</ui-btn>
+                    :options="['option 1', 'option 2', 'option 3', 'option 4']"></ui-input>
+          <ui-btn class="btn" @click="text = ''">Button</ui-btn>
 
         </div>
         <div class="row">
           <ui-input class="btn"
-                    label="Classic search"
+                    label="Input"
                     v-model="text2"
                     variant="outlined"
                     clearable
-                    :options="['option 1', 'OpTiOn2', 'OPTION 3', 'Option 4']"></ui-input>
-          <ui-btn class="btn" variant="outlined" @click="text2 = ''">Clear</ui-btn>
+                    :options="['option 1', 'option 2', 'option 3', 'option 4']"></ui-input>
+          <ui-btn class="btn" variant="outlined" @click="text2 = ''">Button</ui-btn>
         </div>
         <div class="row">
-          {{ text }}
-          {{ text2 }}
+          <ui-input
+              v-model="text3"
+              label="Small"
+              class="btn"
+              size="s"
+              clearable/>
+        </div>
+        <div class="row">
+          <ui-input
+              v-model="text3"
+              label="Middle"
+              class="btn"
+              size="m"
+              clearable/>
+        </div>
+        <div class="row">
+          <ui-input
+              v-model="text3"
+              label="Grand"
+              class="btn"
+              size="l"
+              clearable/>
         </div>
       </div>
     </div>
@@ -40,6 +63,7 @@ import {ref} from "vue";
 
 const text = ref("")
 const text2 = ref("")
+const text3 = ref("")
 const changeTheme = () => {
   const root = document.getElementById('app')
   if (root?.classList.contains('dark')) {

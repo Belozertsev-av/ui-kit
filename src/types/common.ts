@@ -8,6 +8,8 @@ export type Icon = 'submit'
     | 'warning'
     | 'theme'
 
+export type Size = "s" | "m" | "l"
+
 export type Variant = 'outlined' | 'default'
 
 export type Action = 'action' | 'success' | 'fail' | 'warning' | 'alert' | 'info' | 'normal'

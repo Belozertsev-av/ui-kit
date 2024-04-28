@@ -24,6 +24,23 @@ body {
   border-radius: 1rem;
 }
 
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.s {
+  padding: var(--p) var(--p-1);
+}
+
+.m {
+  padding: var(--p-1) var(--p-2);
+}
+
+.l {
+  padding: var(--p-2) var(--p-4);
+}
 
 :root {
   font-size: 14px;
@@ -41,6 +58,7 @@ body {
   --p-2: 1rem;
   --p-3: 1.5rem;
   --p-4: 2rem;
+  --p-5: 2.5rem;
 }
 
 #app {
@@ -54,7 +72,10 @@ body {
   --c-scroll-thumb: #9a9a9a;
 
   --c-background-color: #fff;
-  --c-half-opacity: #00000010;
+
+  --c-grey-100: #f1f1f1;
+  --c-grey-200: #dedede;
+
   --c-primary: #ffd05e;
   --c-secondary: #efb01f;
   --c-primary-on: #ffd05e20;
@@ -98,7 +119,10 @@ body {
   --c-scroll-thumb: #444444;
 
   --c-background-color: #151515;
-  --c-half-opacity: #ffffff10;
+
+  --c-grey-100: #262626;
+  --c-grey-200: #2f2f2f;
+
   --c-primary: #e3a414;
   --c-secondary: #efb01f;
   --c-primary-on: #ffd05e20;
@@ -128,8 +152,8 @@ body {
   }
 
   .normal {
-    --c-primary: #808080;
-    --c-secondary: #8f8f8f;
+    --c-primary: #757575;
+    --c-secondary: #656565;
     --c-primary-on: #8f8f8f50;
   }
 }

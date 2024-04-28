@@ -1,10 +1,15 @@
 <template>
-  <div class="input" :class="{outlined: props.variant === 'outlined'}">
-    <label class="input-label" :for="inputId">{{ props.label }}</label>
+  <div class="input" :class="size, { outlined: props.variant === 'outlined' }">
+    <label class="input-label"
+           :for="inputId"
+           :class="{ 'ellipsis' : isLabelTooLong }"
+           ref="labelElement">
+      {{ props.label }}
+    </label>
     <input class="input-body"
            type="text"
            :id="inputId"
-           ref="input"
+           ref="inputElement"
            :value="value"
            @input="emitValue"/>
     <transition name="fade">
@@ -13,9 +18,9 @@
       </div>
     </transition>
     <transition name="fade-options">
-      <div class="input-options" ref="inputOptions" v-if="isOpenedOptionList">
+      <div class="input-options" ref="inputOptions" v-if="isOpenedOptionList && props.options">
         <ul class="input-options-list">
-          <li class="input-option"
+          <li class="input-option ellipsis"
               v-for="(option, index) in filteredOptions"
               :key="Math.floor(index * Math.random()*99)"
               @click="checkOption(option)"> {{ option }}
@@ -29,8 +34,8 @@
 </template>
 
 <script setup lang="ts">
-import {computed, PropType, ref, watch} from "vue";
-import {Variant} from "@/types/common";
+import {computed, onMounted, PropType, ref, watch} from "vue";
+import {Size, Variant} from "@/types/common";
 
 const emits = defineEmits(["update:modelValue"])
 const props = defineProps({
@@ -55,10 +60,17 @@ const props = defineProps({
   options: {
     type: Array as PropType<string[]>,
     required: false
+  },
+  size: {
+    type: String as PropType<Size>,
+    required: false,
+    default: "m"
   }
 })
-const input = ref<HTMLElement | null>(null)
-const isOpenedOptionList = ref<Boolean>(false)
+const inputElement = ref<HTMLElement | null>(null)
+const labelElement = ref<HTMLElement | null>(null)
+const isOpenedOptionList = ref<boolean>(false)
+const isLabelTooLong = ref<boolean>(false)
 
 
 const inputId = `input-${Math.floor(Math.random() * 999)}`
@@ -71,21 +83,20 @@ const emitValue = (event: Event) => {
 
 const clearValue = () => {
   emits("update:modelValue", "")
-  input.value?.focus()
+  inputElement.value?.focus()
   isOpenedOptionList.value = false
 }
 
 const checkOption = (option: string) => {
   if (option !== "None") {
     emits("update:modelValue", option)
-    input.value?.focus()
+    inputElement.value?.focus()
   }
 }
 
 const value = computed((): string => {
   return props.modelValue!
 })
-
 
 watch(value, (value) => {
   if (value !== "") {
@@ -99,16 +110,27 @@ watch(value, (value) => {
   if (filteredOptions.value.find(it => value === it)) isOpenedOptionList.value = false
 })
 
+onMounted(() => {
+  if (labelElement.value && labelElement.value.offsetWidth > 220) {
+    labelElement.value.style.width = '220px'
+    isLabelTooLong.value = true
+  }
+})
 </script>
 
 <style lang="scss" scoped>
 .input {
+  transition: all 0.2s;
   position: relative;
   display: flex;
-  background-color: var(--c-half-opacity);
-  padding: var(--p-1) var(--p-2);
+  height: fit-content;
+  background-color: var(--c-grey-100);
   border-radius: var(--rad);
   min-width: 250px;
+
+  &:focus-within {
+    background-color: var(--c-grey-200);
+  }
 
   &-label {
     cursor: pointer;
@@ -172,7 +194,7 @@ watch(value, (value) => {
     left: 0;
     width: 100%;
     height: fit-content;
-    border: 1px solid var(--c-half-opacity);
+    border: 1px solid var(--c-grey-100);
     background-color: var(--c-background-color);
     border-radius: var(--rad);
     padding: var(--p);
@@ -182,9 +204,10 @@ watch(value, (value) => {
   &-option {
     cursor: pointer;
     padding: var(--p-1) var(--p-1);
+    width: 100%;
 
     &:hover {
-      background-color: var(--c-half-opacity);
+      background-color: var(--c-grey-100);
     }
   }
 }
@@ -193,7 +216,12 @@ watch(value, (value) => {
   background: none;
   border: 1px solid var(--c-secondary);
 
+  &:focus-within {
+    background-color: var(--c-primary-on);
+  }
+
   .input {
+
     &-label {
       color: var(--c-secondary);
       background-color: var(--c-background-color);
@@ -218,6 +246,10 @@ watch(value, (value) => {
       border: 1px solid var(--c-secondary);
     }
   }
+}
+
+.l {
+  padding: var(--p-2);
 }
 
 .fade-enter-active,

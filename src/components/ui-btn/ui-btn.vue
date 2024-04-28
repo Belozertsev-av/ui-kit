@@ -1,6 +1,6 @@
 <template>
   <button class="btn" @click="unfocus"
-          :class="action, {outlined: props.variant === 'outlined'}">
+          :class="action, {outlined: props.variant === 'outlined'}, size">
     <span class="btn-prepend-icon" v-if="props.prependIcon">
       <svg class="icon">
         <use :href="prependIcon.src" :alt="prependIcon.alt"/>
@@ -16,9 +16,8 @@
 </template>
 
 <script setup lang="ts">
-
 import {computed, PropType} from "vue";
-import {Action, Icon, Variant} from "@/types/common";
+import {Action, Icon, Size, Variant} from "@/types/common";
 import {useIcon} from "@/types/converters";
 
 const props = defineProps({
@@ -44,6 +43,11 @@ const props = defineProps({
   prependIcon: {
     type: String as PropType<Icon>,
     required: false
+  },
+  size: {
+    type: String as PropType<Size>,
+    required: false,
+    default: "m"
   }
 })
 
@@ -72,9 +76,9 @@ const prependIcon = computed(() => {
   align-items: center;
   justify-content: center;
   width: fit-content;
+  height: fit-content;
   font-size: var(--fs-text);
   background-color: var(--c-primary);
-  padding: var(--p-1) var(--p-2);
   border-radius: var(--rad);
 
   .icon {
@@ -121,6 +125,10 @@ const prependIcon = computed(() => {
   }
 }
 
+.l {
+  padding: var(--p-2) var(--p-5);
+}
+
 .icon {
   height: 1.25rem;
   width: 1.25rem;
@@ -133,7 +141,7 @@ const prependIcon = computed(() => {
 #app.dark {
   .btn {
     &:hover {
-      filter: brightness(0.95);
+      filter: brightness(0.9);
     }
 
     &:focus {
