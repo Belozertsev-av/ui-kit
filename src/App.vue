@@ -3,67 +3,35 @@
     <div class="wrapper">
       <div class="column">
         <ui-btn class="btn" append-icon="theme" action="normal" @click="changeTheme"></ui-btn>
-        <ui-btn size="s">small</ui-btn>
-        <ui-btn size="m">medium</ui-btn>
-        <ui-btn size="l">grand</ui-btn>
+
+        <ui-radio name="groupA" :value="1" v-model="radioResult">Value 1</ui-radio>
+        <ui-radio name="groupA" :value="2" v-model="radioResult">Value 2</ui-radio>
+        <ui-radio name="groupA" :value="3" v-model="radioResult">Value 3</ui-radio>
+
       </div>
       <div class="column">
-        <div class="row">
-          <ui-input class="btn"
-                    label="This is a string of 20 words, and some other text that shouldn't expand"
-                    v-model="text"
-                    clearable
-                    :options="['option 1', 'option 2', 'option 3', 'option 4']"></ui-input>
-          <ui-btn class="btn" @click="text = ''">Button</ui-btn>
-
-        </div>
-        <div class="row">
-          <ui-input class="btn"
-                    label="Input"
-                    v-model="text2"
-                    variant="outlined"
-                    clearable
-                    :options="['option 1', 'option 2', 'option 3', 'option 4']"></ui-input>
-          <ui-btn class="btn" variant="outlined" @click="text2 = ''">Button</ui-btn>
-        </div>
-        <div class="row">
-          <ui-input
-              v-model="text3"
-              label="Small"
-              class="btn"
-              size="s"
-              clearable/>
-        </div>
-        <div class="row">
-          <ui-input
-              v-model="text3"
-              label="Middle"
-              class="btn"
-              size="m"
-              clearable/>
-        </div>
-        <div class="row">
-          <ui-input
-              v-model="text3"
-              label="Grand"
-              class="btn"
-              size="l"
-              clearable/>
-        </div>
+        <ui-checkbox name="znach1" v-model="groubCHB1"> Value 1</ui-checkbox>
+        <ui-checkbox name="znach2" v-model="groubCHB2"> Value 2</ui-checkbox>
+        <ui-checkbox name="znach3" v-model="groubCHB3"> Value 3</ui-checkbox>
+      </div>
+      <div>
+        {{ radioResult }}
       </div>
     </div>
-
   </main>
 </template>
 
 <script setup lang="ts">
 import UiBtn from "@/components/ui-btn/ui-btn.vue";
-import UiInput from "@/components/ui-input/ui-input.vue";
 import {ref} from "vue";
+import UiRadio from "@/components/ui-radio/ui-radio.vue";
+import UiCheckbox from "@/components/ui-checkbox/ui-checkbox.vue";
 
-const text = ref("")
-const text2 = ref("")
-const text3 = ref("")
+const radioResult = ref<number>(0)
+
+const groubCHB1 = ref<boolean>(true)
+const groubCHB2 = ref<boolean>(false)
+const groubCHB3 = ref<boolean>(false)
 const changeTheme = () => {
   const root = document.getElementById('app')
   if (root?.classList.contains('dark')) {

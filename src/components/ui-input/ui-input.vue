@@ -73,7 +73,7 @@ const isOpenedOptionList = ref<boolean>(false)
 const isLabelTooLong = ref<boolean>(false)
 
 
-const inputId = `input-${Math.floor(Math.random() * 999)}`
+const inputId = `input-${Math.random().toString(16).slice(2)}`
 const filteredOptions = ref<string[]>([])
 
 const emitValue = (event: Event) => {

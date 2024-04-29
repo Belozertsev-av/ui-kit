@@ -6,7 +6,7 @@
         <use :href="prependIcon.src" :alt="prependIcon.alt"/>
       </svg>
     </span>
-    <slot class="btn-text"></slot>
+    <slot class="btn-text"/>
     <span class="btn-append-icon" v-if="props.appendIcon">
       <svg class="icon">
         <use :href="appendIcon.src" :alt="appendIcon.alt"/>
@@ -148,6 +148,5 @@ const prependIcon = computed(() => {
       filter: brightness(1.2);
     }
   }
-
 }
 </style>
