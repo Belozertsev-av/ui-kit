@@ -18,4 +18,8 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ### ui-radio
 
+![Снимок экрана 2024-04-29 122241](https://github.com/Belozertsev-av/ui-kit/assets/65508634/1e4641f5-7784-490b-8b73-55827ac48fa7)
+
 ### ui-checkbox
+
+![Снимок экрана 2024-04-29 122231](https://github.com/Belozertsev-av/ui-kit/assets/65508634/9ed3447c-7625-4b94-9077-1aae1c14c973)
