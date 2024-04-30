@@ -23,3 +23,8 @@ This template should help get you started developing with Vue 3 in Vite.
 ### ui-checkbox
 
 ![Снимок экрана 2024-04-29 122231](https://github.com/Belozertsev-av/ui-kit/assets/65508634/9ed3447c-7625-4b94-9077-1aae1c14c973)
+
+### ui-switch
+
+![Снимок экрана 2024-04-30 143615](https://github.com/Belozertsev-av/ui-kit/assets/65508634/d54dbb7f-f72b-473d-aa26-c33244524fd8)
+![Снимок экрана 2024-04-30 143605](https://github.com/Belozertsev-av/ui-kit/assets/65508634/6d587bd5-806e-4a83-999e-f8dc98d94b08)

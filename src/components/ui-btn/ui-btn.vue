@@ -1,6 +1,6 @@
 <template>
   <button class="btn" @click="unfocus"
-          :class="action, {outlined: props.variant === 'outlined'}, size">
+          :class="action, size, {outlined: props.variant === 'outlined'}">
     <span class="btn-prepend-icon" v-if="props.prependIcon">
       <svg class="icon">
         <use :href="prependIcon.src" :alt="prependIcon.alt"/>
