@@ -4,18 +4,15 @@
       <div class="column">
         <ui-btn class="btn" append-icon="theme" action="normal" @click="changeTheme"></ui-btn>
 
-        <ui-radio name="groupA" :value="1" v-model="radioResult">Value 1</ui-radio>
-        <ui-radio name="groupA" :value="2" v-model="radioResult">Value 2</ui-radio>
-        <ui-radio name="groupA" :value="3" v-model="radioResult">Value 3</ui-radio>
+        <ui-switch v-model="switchResult" size="s">Value 1</ui-switch>
+        <ui-switch v-model="switchResult" size="s" variant="outlined">Value 1</ui-switch>
 
+        <ui-switch v-model="switchResult2" size="m">Value 2</ui-switch>
+        <ui-switch v-model="switchResult2" size="m" variant="outlined">Value 2</ui-switch>
       </div>
       <div class="column">
-        <ui-checkbox name="znach1" v-model="groubCHB1"> Value 1</ui-checkbox>
-        <ui-checkbox name="znach2" v-model="groubCHB2"> Value 2</ui-checkbox>
-        <ui-checkbox name="znach3" v-model="groubCHB3"> Value 3</ui-checkbox>
-      </div>
-      <div>
-        {{ radioResult }}
+        {{ switchResult }}
+        {{ switchResult2 }}
       </div>
     </div>
   </main>
@@ -24,14 +21,11 @@
 <script setup lang="ts">
 import UiBtn from "@/components/ui-btn/ui-btn.vue";
 import {ref} from "vue";
-import UiRadio from "@/components/ui-radio/ui-radio.vue";
-import UiCheckbox from "@/components/ui-checkbox/ui-checkbox.vue";
+import UiSwitch from "@/components/ui-switch/ui-switch.vue";
 
-const radioResult = ref<number>(0)
+const switchResult = ref<boolean>(false)
+const switchResult2 = ref<boolean>(false)
 
-const groubCHB1 = ref<boolean>(true)
-const groubCHB2 = ref<boolean>(false)
-const groubCHB3 = ref<boolean>(false)
 const changeTheme = () => {
   const root = document.getElementById('app')
   if (root?.classList.contains('dark')) {
@@ -64,10 +58,5 @@ main {
 .column {
   display: flex;
   flex-direction: column;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
 }
 </style>
