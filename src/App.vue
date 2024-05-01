@@ -4,15 +4,14 @@
       <div class="column">
         <ui-btn class="btn" append-icon="theme" action="normal" @click="changeTheme"></ui-btn>
 
-        <ui-switch v-model="switchResult" size="s">Value 1</ui-switch>
-        <ui-switch v-model="switchResult" size="s" variant="outlined">Value 1</ui-switch>
-
-        <ui-switch v-model="switchResult2" size="m">Value 2</ui-switch>
-        <ui-switch v-model="switchResult2" size="m" variant="outlined">Value 2</ui-switch>
+        <ui-input v-model="inputResult"
+                  label="Input"
+                  clearable
+                  size="s"
+                  :options="['option 1', 'option 2', 'option 3']"/>
       </div>
       <div class="column">
-        {{ switchResult }}
-        {{ switchResult2 }}
+        {{ inputResult }}
       </div>
     </div>
   </main>
@@ -21,10 +20,9 @@
 <script setup lang="ts">
 import UiBtn from "@/components/ui-btn/ui-btn.vue";
 import {ref} from "vue";
-import UiSwitch from "@/components/ui-switch/ui-switch.vue";
+import UiInput from "@/components/ui-input/ui-input.vue";
 
-const switchResult = ref<boolean>(false)
-const switchResult2 = ref<boolean>(false)
+const inputResult = ref<string>("")
 
 const changeTheme = () => {
   const root = document.getElementById('app')
