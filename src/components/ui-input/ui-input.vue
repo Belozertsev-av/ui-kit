@@ -1,5 +1,6 @@
 <template>
-  <div class="input" :class="size, { outlined: props.variant === 'outlined' }">
+  <div class="input"
+       :class="size, { outlined: props.variant === 'outlined' }">
     <label class="input-label"
            :for="inputId"
            :class="{ 'ellipsis' : isLabelTooLong }"
@@ -11,19 +12,28 @@
            :id="inputId"
            ref="inputElement"
            :value="value"
-           @input="emitValue"/>
+           @input="emitValue"
+           @keyup.down="focusOnNextOption"
+           @keyup.up="focusOnPrevOption"/>
     <transition name="fade">
       <div class="input-cross" @click="clearValue" v-if="props.clearable && value !== ''">
         <div class="input-cross-body"></div>
       </div>
     </transition>
     <transition name="fade-options">
-      <div class="input-options" ref="inputOptions" v-if="isOpenedOptionList && props.options">
-        <ul class="input-options-list">
+      <div class="input-options"
+           v-if="isOpenedOptionList && props.options"
+           v-click-outside="() => isOpenedOptionList = false"
+           ref="inputOptions">
+        <ul ref="listElement" class="input-options-list">
           <li class="input-option ellipsis"
               v-for="(option, index) in filteredOptions"
               :key="Math.floor(index * Math.random()*99)"
-              @click="checkOption(option)"> {{ option }}
+              tabindex="0"
+              @click="checkOption(option)"
+              @keyup.enter="checkOption(option)"
+              @keyup.down="focusOnNextOption"
+              @keyup.up="focusOnPrevOption"> {{ option }}
           </li>
         </ul>
       </div>
@@ -69,8 +79,11 @@ const props = defineProps({
 })
 const inputElement = ref<HTMLElement | null>(null)
 const labelElement = ref<HTMLElement | null>(null)
+const listElement = ref<HTMLElement | null>(null)
+
 const isOpenedOptionList = ref<boolean>(false)
 const isLabelTooLong = ref<boolean>(false)
+const optionPosition = ref<number>(0)
 
 
 const inputId = `input-${Math.random().toString(16).slice(2)}`
@@ -79,18 +92,56 @@ const filteredOptions = ref<string[]>([])
 const emitValue = (event: Event) => {
   const targetInput = (event.target as HTMLInputElement)
   emits("update:modelValue", targetInput.value)
+  optionPosition.value = 0
 }
 
 const clearValue = () => {
   emits("update:modelValue", "")
   inputElement.value?.focus()
   isOpenedOptionList.value = false
+  optionPosition.value = 0
 }
 
+const focusOnNextOption = () => {
+  if (filteredOptions.value.length !== 0
+      && filteredOptions.value[0] !== "None") {
+
+    if (optionPosition.value < filteredOptions.value.length) {
+      (listElement.value?.children[optionPosition.value] as HTMLElement).focus()
+      optionPosition.value++
+    } else if (optionPosition.value === filteredOptions.value.length) {
+      inputElement.value?.focus()
+      optionPosition.value = 0
+    }
+  }
+}
+
+const focusOnPrevOption = () => {
+  if (filteredOptions.value.length !== 0
+      && filteredOptions.value[0] !== "None") {
+    if (optionPosition.value === 0) {
+      optionPosition.value = (filteredOptions.value.length) as number
+      (listElement.value?.children[optionPosition.value - 1] as HTMLElement).focus()
+
+    } else if (optionPosition.value === 1) {
+      optionPosition.value = 0
+      inputElement.value?.focus()
+
+    } else if (optionPosition.value > 1 && optionPosition.value < filteredOptions.value.length) {
+      (listElement.value?.children[optionPosition.value - 2] as HTMLElement).focus()
+      optionPosition.value--
+
+    } else if (optionPosition.value === filteredOptions.value.length) {
+      (listElement.value?.children[optionPosition.value - 2] as HTMLElement).focus()
+      optionPosition.value--
+    }
+  }
+}
 const checkOption = (option: string) => {
   if (option !== "None") {
     emits("update:modelValue", option)
     inputElement.value?.focus()
+    optionPosition.value = 0
   }
 }
 
@@ -207,6 +258,10 @@ onMounted(() => {
     width: 100%;
 
     &:hover {
+      background-color: var(--c-grey-100);
+    }
+
+    &:focus {
       background-color: var(--c-grey-100);
     }
   }
